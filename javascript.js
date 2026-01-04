@@ -1,4 +1,5 @@
 let library=[];
+let index=0;
 const tbody=document.querySelector("tbody");
 const body=document.querySelector("body");
 const button=document.querySelector(".add-book");
@@ -11,20 +12,15 @@ function Book(title,author,noofpages,read,id){
 }
 
 function addBookToLibrary(book3){
-    let book1=new Book("The Hobbit","Jk Rowling","157","Not read",crypto.randomUUID());
-    library.push(book1);
-    let book2=new Book("The Hobbit","Jk Rowling","157","Read",crypto.randomUUID());
-    library.push(book2);
-    library=[];
     library.push(book3);
+    console.log(index);
     console.log(library[0]);
 }
-addBookToLibrary();
 function displayBook(){
-    for(let book=0;book<=library.length-1;book++){
+    for(let book=index;book<=library.length-1;book++){
         const row = document.createElement("tr");
         const sno1=document.createElement("td");
-        sno1.textContent=book+1;
+        sno1.textContent=index+1;
         row.appendChild(sno1);
         const title1=document.createElement("td");
         title1.textContent=library[book].title;
@@ -41,13 +37,14 @@ function displayBook(){
         read1.checked=library[book].read;
         row.appendChild(read1_td);
         read1_td.appendChild(read1);
-        if(read1.textContent=='false'){
+        if(read1.checked==false){
             row.style.backgroundColor="red";
         }
-        if(read1.textContent=='true'){
+        if(read1.checked==true){
             row.style.backgroundColor="green";
         }
         tbody.appendChild(row);
+        index++;
     }
 }
 button.addEventListener("click",buttonclick);
@@ -103,7 +100,6 @@ function buttonclick(){
     submit.addEventListener("click", (e) => {
         e.preventDefault();
         const book3=new Book(input_title.value,input_author.value,input_noofpages.value,input_read.checked);
-        library.push(book3);
         addBookToLibrary(book3);
         displayBook();
         dialog.close();
@@ -136,6 +132,5 @@ function buttonclick(){
     body.appendChild(dialog);
     dialog.appendChild(form);
     dialog.showModal();
-   
 }
 
