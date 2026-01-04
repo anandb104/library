@@ -43,6 +43,14 @@ function displayBook(){
         if(read1.checked==true){
             row.style.backgroundColor="green";
         }
+        read1.addEventListener('click',()=>{
+           if(read1.checked){
+            row.style.backgroundColor="green";
+           }
+           else{
+            row.style.backgroundColor="red";
+           }
+        })
         tbody.appendChild(row);
         index++;
     }

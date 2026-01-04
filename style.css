@@ -6,6 +6,7 @@ table{
     border: 2px solid rgb(200 200 200);
     font-size: 0.8rem;
     border-collapse: collapse;
+    background-color: white;
 }
 td,th{
     border: 2px solid rgb(200 200 200);
@@ -22,7 +23,7 @@ caption{
     display:flex;
     flex-direction:column;
    gap:8rem;
-    padding-top:12rem;
+   
     justify-content:start;
     align-items:center;
     height:100vh;
@@ -89,4 +90,7 @@ height:1.2rem;
 width:1.2rem;
 border-radius:50%;
 background-color: red;
+}
+body{
+    background-color: lightgrey;
 }
