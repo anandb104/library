@@ -55,7 +55,7 @@ body{
 }
 input{
     border-radius: 5rem;
-    padding-left:0.15rem;
+    padding-left:0.35rem;
 }
 form{
     display:flex;
@@ -93,4 +93,12 @@ background-color: red;
 }
 body{
     background-color: lightgrey;
+}
+.delete{
+    width:auto;
+    padding:0.5rem;
+}
+.delete:hover{
+    width:auto;
+    
 }

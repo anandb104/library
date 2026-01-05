@@ -19,6 +19,7 @@ function addBookToLibrary(book3){
 function displayBook(){
     for(let book=index;book<=library.length-1;book++){
         const row = document.createElement("tr");
+        row.dataset.id = library[book].id;
         const sno1=document.createElement("td");
         sno1.textContent=index+1;
         row.appendChild(sno1);
@@ -32,7 +33,7 @@ function displayBook(){
         noofpages1.textContent=library[book].noofpages;
         row.appendChild(noofpages1);
         const read1_td=document.createElement("td");
-        const read1=document.createElement("input");
+        let read1=document.createElement("input");
         read1.type='checkbox';
         read1.checked=library[book].read;
         row.appendChild(read1_td);
@@ -46,11 +47,40 @@ function displayBook(){
         read1.addEventListener('click',()=>{
            if(read1.checked){
             row.style.backgroundColor="green";
+            library[book].read=true;
+            console.log(library[0]);
            }
            else{
             row.style.backgroundColor="red";
+            library[book].read=false;
            }
         })
+        const delete_td=document.createElement("td");
+        const delete1=document.createElement("button");
+        delete1.classList.add('delete');
+        delete1.textContent='Remove';
+        delete1.addEventListener('click',()=>{
+            const id = row.dataset.id;
+            const removeIndex = library.findIndex(b => b.id == id);
+            if (removeIndex !== -1) {
+                library.splice(removeIndex, 1);
+            }
+            tbody.removeChild(row);
+            const rows = tbody.querySelectorAll("tr");
+            for(let i=0;i<=rows.length-1;i++){
+              rows[i].children[0].textContent=i+1; 
+              
+            }
+            console.log(library);
+        });
+        // function renumberRows() {
+        //     const rows = tbody.querySelectorAll("tr");
+        //    for(let i=0;i<=rows.length-1;i++){
+        //     rows[i].children[0].textContent=i+1;
+        //    }
+        // }
+        row.appendChild(delete_td);
+        delete_td.appendChild(delete1);
         tbody.appendChild(row);
         index++;
     }
@@ -107,7 +137,8 @@ function buttonclick(){
     submit.textContent='Submit?';
     submit.addEventListener("click", (e) => {
         e.preventDefault();
-        const book3=new Book(input_title.value,input_author.value,input_noofpages.value,input_read.checked);
+        const uid = crypto.randomUUID();
+        const book3=new Book(input_title.value,input_author.value,input_noofpages.value,input_read.checked,uid);
         addBookToLibrary(book3);
         displayBook();
         dialog.close();
