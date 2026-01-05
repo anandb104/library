@@ -1,10 +1,10 @@
 let library=[];
 let index=0;
-// loadLibrary();
-// displayBook();
 const tbody=document.querySelector("tbody");
 const body=document.querySelector("body");
 const button=document.querySelector(".add-book");
+loadLibrary();
+displayBook();
 function Book(title,author,noofpages,read,id){
     this.title=title;
     this.author=author;
@@ -58,11 +58,13 @@ function displayBook(){
            if(read1.checked){
             row.style.backgroundColor="green";
             library[book].read=true;
+            saveLibrary();
             console.log(library[0]);
            }
            else{
             row.style.backgroundColor="red";
             library[book].read=false;
+            saveLibrary();
            }
         })
         const delete_td=document.createElement("td");
@@ -75,6 +77,7 @@ function displayBook(){
             if (removeIndex !== -1) {
                 library.splice(removeIndex, 1);
             }
+            saveLibrary();
             tbody.removeChild(row);
             const rows = tbody.querySelectorAll("tr");
             for(let i=0;i<=rows.length-1;i++){
@@ -150,7 +153,7 @@ function buttonclick(){
         const uid = crypto.randomUUID();
         const book3=new Book(input_title.value,input_author.value,input_noofpages.value,input_read.checked,uid);
         addBookToLibrary(book3);
-        // saveLibrary();
+        saveLibrary();
         displayBook();
         dialog.close();
         dialog.remove()
