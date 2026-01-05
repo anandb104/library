@@ -1,5 +1,7 @@
 let library=[];
 let index=0;
+// loadLibrary();
+// displayBook();
 const tbody=document.querySelector("tbody");
 const body=document.querySelector("body");
 const button=document.querySelector(".add-book");
@@ -10,7 +12,15 @@ function Book(title,author,noofpages,read,id){
     this.read=read;
     this.id=id;
 }
-
+function saveLibrary() {
+    localStorage.setItem("library", JSON.stringify(library));
+}
+function loadLibrary() {
+    const data = localStorage.getItem("library");
+    if (data) {
+        library = JSON.parse(data);
+    }
+}
 function addBookToLibrary(book3){
     library.push(book3);
     console.log(index);
@@ -69,8 +79,8 @@ function displayBook(){
             const rows = tbody.querySelectorAll("tr");
             for(let i=0;i<=rows.length-1;i++){
               rows[i].children[0].textContent=i+1; 
-              
             }
+            index--;
             console.log(library);
         });
         // function renumberRows() {
@@ -140,6 +150,7 @@ function buttonclick(){
         const uid = crypto.randomUUID();
         const book3=new Book(input_title.value,input_author.value,input_noofpages.value,input_read.checked,uid);
         addBookToLibrary(book3);
+        // saveLibrary();
         displayBook();
         dialog.close();
         dialog.remove()
